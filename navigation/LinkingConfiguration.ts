@@ -24,6 +24,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       Modal: "modal",
       ChatScreen: "*",
       NotFound: "*",
+      ChatInfo: "*",
     },
   },
 };

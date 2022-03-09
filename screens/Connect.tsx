@@ -1,18 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import Colors from "../constants/Colors";
 
 export default function Connect() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-    </View>
-  );
+  return <FlatList style={(styles.container, styles.containerDark)} />;
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    height: "100%",
+  },
+  containerDark: {
+    backgroundColor: Colors.dark.background,
   },
   title: {
     fontSize: 20,

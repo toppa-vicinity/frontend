@@ -17,8 +17,11 @@ declare global {
   }
 }
 
-export type ChartScreenParamList = {
+export type ChatScreenParamList = {
   id: String;
+  user: User;
+};
+export type ChatInfoParamList = {
   user: User;
 };
 
@@ -26,7 +29,8 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Modal: undefined;
   NotFound: undefined;
-  ChatScreen: ChartScreenParamList | undefined;
+  ChatScreen: ChatScreenParamList | undefined;
+  ChatInfo: ChatInfoParamList | undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

@@ -9,6 +9,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
@@ -34,6 +35,7 @@ import {
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { ChatScreen } from "../screens/ChatScreen";
+import ChatInfo from "../screens/ChatInfo";
 
 export default function Navigation({
   colorScheme,
@@ -77,9 +79,30 @@ function RootNavigator() {
       <Stack.Screen
         name="ChatScreen"
         component={ChatScreen}
-        options={({ route }) => ({
+        options={({ navigation, route }) => ({
           title: route.params?.user.name,
           headerBackButtonMenuEnabled: false,
+          headerRight: () => (
+            <Pressable
+              onPress={() =>
+                navigation.navigate("ChatInfo", { user: route.params?.user })
+              }
+            >
+              <Entypo
+                name="dots-three-horizontal"
+                size={24}
+                color={Colors.dark.text}
+              />
+            </Pressable>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ChatInfo"
+        component={ChatInfo}
+        options={({ navigation, route }) => ({
+          title: route.params?.user.name,
+          headerBackTitle: "",
         })}
       />
       <Stack.Screen
@@ -121,21 +144,6 @@ function BottomTabNavigator() {
           ),
           headerStyle: { backgroundColor: Colors[colorScheme].tint },
           headerTintColor: Colors[colorScheme].text,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Modal")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
         })}
       />
       <BottomTab.Screen
@@ -167,6 +175,8 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" size={24} color={color} />
           ),
+          headerStyle: { backgroundColor: Colors[colorScheme].tint },
+          headerTintColor: Colors[colorScheme].text,
         }}
       />
     </BottomTab.Navigator>
