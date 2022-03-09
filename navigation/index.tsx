@@ -74,7 +74,14 @@ function RootNavigator() {
         component={BottomTabNavigator}
         options={{ title: "Vicinity", headerShown: false }}
       />
-      <Stack.Screen name="ChatScreen" component={ChatScreen} />
+      <Stack.Screen
+        name="ChatScreen"
+        component={ChatScreen}
+        options={({ route }) => ({
+          title: route.params?.user.name,
+          headerBackButtonMenuEnabled: false,
+        })}
+      />
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}

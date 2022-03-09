@@ -10,27 +10,27 @@ import {
 import Colors from "../constants/Colors";
 
 export interface User {
-  id: String;
-  name: String;
+  id: string;
+  name: string;
   imageURL: string;
 }
 
 export interface ChatRowProp {
-  id: String;
+  id: string;
   user: User;
   recentMsg: Message;
 }
 
 export interface Message {
-  id: String;
-  content: String;
+  id: string;
+  content: string;
   createdAt: Date;
 }
 
 export default function ChatRow(props: ChatRowProp) {
   const { user, recentMsg, id } = props;
   const _onPressButton = () => {
-    navigaton.navigate("ChatScreen");
+    navigaton.navigate("ChatScreen", { id, user });
   };
   const navigaton = useNavigation();
   return (
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   rightContainer: {
     justifyContent: "space-between",
-    marginLeft: 10,
+    marginLeft: 12,
   },
   topContainer: {
     flexDirection: "row",

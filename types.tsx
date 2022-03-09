@@ -9,6 +9,7 @@ import {
   NavigatorScreenParams,
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { User } from "./components/ChatRow";
 
 declare global {
   namespace ReactNavigation {
@@ -16,11 +17,16 @@ declare global {
   }
 }
 
+export type ChartScreenParamList = {
+  id: String;
+  user: User;
+};
+
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Modal: undefined;
   NotFound: undefined;
-  ChatScreen: undefined;
+  ChatScreen: ChartScreenParamList | undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

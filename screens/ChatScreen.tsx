@@ -1,13 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-export function ChatScreen(id: String) {
-  return <View style={styles.container}></View>;
+export function ChatScreen() {
+  return <ScrollView style={styles.container}></ScrollView>;
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    height: "100%",
   },
 });
