@@ -3,11 +3,26 @@ import { StyleSheet } from "react-native";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import Colors from "../constants/Colors";
-import { RootTabScreenProps } from "../types";
 
-export default function Contacts({
-  navigation,
-}: RootTabScreenProps<"Contacts">) {
+export interface User {
+  id: String;
+  name: String;
+  imageURL: String;
+}
+
+export interface ChatRowProps {
+  id: String;
+  user: [User];
+}
+
+export interface Mesasge {
+  id: String;
+  content: String;
+  sender: User;
+  createdAt: number;
+}
+
+export default function ChatRow(props: ChatRowProps) {
   return <View style={(styles.container, styles.containerDark)}></View>;
 }
 

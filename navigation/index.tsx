@@ -4,7 +4,7 @@
  *
  */
 import { StatusBar } from "expo-status-bar";
-import { Platform } from "react-native";
+import { Platform, Text } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -110,7 +110,6 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <Feather name="message-square" size={24} color={color} />
           ),
-          title: "Vicinity",
           headerStyle: { backgroundColor: Colors[colorScheme].tint },
           headerTintColor: Colors[colorScheme].text,
           headerRight: () => (

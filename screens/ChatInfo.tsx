@@ -5,9 +5,7 @@ import { Text, View } from "../components/Themed";
 import Colors from "../constants/Colors";
 import { RootTabScreenProps } from "../types";
 
-export default function Contacts({
-  navigation,
-}: RootTabScreenProps<"Contacts">) {
+export default function ChatInfo() {
   return <View style={(styles.container, styles.containerDark)}></View>;
 }
 
