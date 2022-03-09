@@ -15,29 +15,14 @@ const linking: LinkingOptions<RootStackParamList> = {
     screens: {
       Root: {
         screens: {
-          Chat: {
-            screens: {
-              TabOneScreen: "one",
-            },
-          },
-          New: {
-            screens: {
-              TabTwoScreen: "two",
-            },
-          },
-          Contacts: {
-            screens: {
-              TabTwoScreen: "three",
-            },
-          },
-          Account: {
-            screens: {
-              TabTwoScreen: "four",
-            },
-          },
+          Chat: "*",
+          Connect: "*",
+          Contacts: "*",
+          Account: "*",
         },
       },
       Modal: "modal",
+      ChatScreen: "*",
       NotFound: "*",
     },
   },

@@ -24,7 +24,7 @@ import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import Chat from "../screens/Chat";
-import New from "../screens/New";
+import Connect from "../screens/Connect";
 import Contacts from "../screens/Contacts";
 import Account from "../screens/Account";
 import {
@@ -33,6 +33,7 @@ import {
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import { ChatScreen } from "../screens/ChatScreen";
 
 export default function Navigation({
   colorScheme,
@@ -73,6 +74,7 @@ function RootNavigator() {
         component={BottomTabNavigator}
         options={{ title: "Vicinity", headerShown: false }}
       />
+      <Stack.Screen name="ChatScreen" component={ChatScreen} />
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
@@ -130,8 +132,8 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="New"
-        component={New}
+        name="Connect"
+        component={Connect}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather name="plus-square" size={24} color={color} />

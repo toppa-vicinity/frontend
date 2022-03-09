@@ -1,47 +1,88 @@
-import { StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableHighlight,
+} from "react-native";
 
-import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
 import Colors from "../constants/Colors";
 
 export interface User {
   id: String;
   name: String;
-  imageURL: String;
+  imageURL: string;
 }
 
-export interface ChatRowProps {
+export interface ChatRowProp {
   id: String;
-  user: [User];
+  user: User;
+  recentMsg: Message;
 }
 
-export interface Mesasge {
+export interface Message {
   id: String;
   content: String;
-  sender: User;
-  createdAt: number;
+  createdAt: Date;
 }
 
-export default function ChatRow(props: ChatRowProps) {
-  return <View style={(styles.container, styles.containerDark)}></View>;
+export default function ChatRow(props: ChatRowProp) {
+  const { user, recentMsg, id } = props;
+  const _onPressButton = () => {
+    navigaton.navigate("ChatScreen");
+  };
+  const navigaton = useNavigation();
+  return (
+    <TouchableHighlight onPress={_onPressButton} underlayColor="lightgrey">
+      <View style={styles.container}>
+        <Image source={{ uri: user.imageURL }} style={styles.avatar} />
+        <View style={styles.rightContainer}>
+          <View style={styles.topContainer}>
+            <Text style={styles.username}>{user.name}</Text>
+            <Text
+              style={styles.content}
+            >{`${recentMsg.createdAt.getMonth()}/${recentMsg.createdAt.getDate()}/${recentMsg.createdAt.getFullYear()}`}</Text>
+          </View>
+          <Text numberOfLines={1} style={styles.content}>
+            {recentMsg.content}
+          </Text>
+        </View>
+      </View>
+    </TouchableHighlight>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: "row",
+    height: 50,
+    width: "80%",
+    margin: 10,
+    marginTop: 12,
+    marginBottom: 12,
   },
-  containerDark: {
-    backgroundColor: Colors.dark.background,
+  rightContainer: {
+    justifyContent: "space-between",
+    marginLeft: 10,
   },
-  title: {
+  topContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+  },
+  username: {
+    color: "#E3E8EE",
     fontSize: 20,
     fontWeight: "bold",
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  content: {
+    color: "#939CA1",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

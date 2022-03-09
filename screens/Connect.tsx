@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 
-import Colors from "../constants/Colors";
-
-export default function ChatInfo() {
-  return <View style={(styles.container, styles.containerDark)}></View>;
+export default function Connect() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Tab Two</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -11,9 +13,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-  containerDark: {
-    backgroundColor: Colors.dark.background,
   },
   title: {
     fontSize: 20,
