@@ -3,16 +3,12 @@ import { StyleSheet, Text, View } from "react-native";
 import Colors from "../constants/Colors";
 
 export default function ChatInfo() {
-  return <View style={(styles.container, styles.containerDark)}></View>;
+  return <View style={styles.container} />;
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  containerDark: {
+    height: "100%",
     backgroundColor: Colors.dark.background,
   },
   title: {

@@ -24,6 +24,7 @@ export interface ChatRowProp {
 export interface Message {
   id: string;
   content: string;
+  user: User;
   createdAt: Date;
 }
 

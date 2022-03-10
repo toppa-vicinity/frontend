@@ -8,9 +8,9 @@ import { RootTabScreenProps } from "../types";
 export default function Chat({ navigation }: RootTabScreenProps<"Chat">) {
   return (
     <FlatList
-      style={(styles.container, styles.containerDark)}
+      style={styles.container}
       data={mockData}
-      renderItem={({ item }) => <ChatRow {...item}></ChatRow>}
+      renderItem={({ item }) => <ChatRow {...item} />}
     />
   );
 }
@@ -18,8 +18,6 @@ export default function Chat({ navigation }: RootTabScreenProps<"Chat">) {
 const styles = StyleSheet.create({
   container: {
     height: "100%",
-  },
-  containerDark: {
     backgroundColor: Colors.dark.background,
   },
   title: {

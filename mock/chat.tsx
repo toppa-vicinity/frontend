@@ -1,4 +1,4 @@
-import { ChatRowProp, User } from "../components/ChatRow";
+import { ChatRowProp, Message, User } from "../components/ChatRow";
 
 const users: User[] = [
   {
@@ -70,7 +70,18 @@ users.forEach((element) => {
     recentMsg: {
       id: element.id,
       content: `I am ${element.name}!!!!! hello there !!!! !!!!!!! !!!!!!! !!!!! !!!!!! !!!!!!!`,
+      user: element,
       createdAt: new Date("July 20, 69 00:20:18"),
     },
   });
 });
+
+export const msgs: Message[] = [];
+for (let i = 0; i < 20; i++) {
+  msgs.push({
+    id: `${i}`,
+    content: `I am cat!!!!! hello deddeded there dede deded ededede !!!!! !!!!!! !!!!!!! What uuuppppppppppppppppppppppppppp ppp p pp p p p ps`,
+    user: users[0],
+    createdAt: new Date("July 20, 69 00:20:18"),
+  });
+}

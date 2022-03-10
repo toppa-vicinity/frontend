@@ -1,33 +1,69 @@
 import { useState } from "react";
-import { ScrollView, StyleSheet, Text, View, TextInput } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableNativeFeedback,
+  Button,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Dimensions,
+} from "react-native";
+import { MessageBox } from "../components/Message";
 import Colors from "../constants/Colors";
+import { msgs } from "../mock/chat";
 
 export function ChatScreen() {
   const [text, setText] = useState("");
   return (
-    <View style={(styles.container, styles.containerDark)}>
-      <ScrollView>
-        <Text>Hi</Text>
-      </ScrollView>
-      <TextInput
-        style={{ height: 40 }}
-        placeholder="Type here to translate!"
-        onChangeText={(newText) => setText(newText)}
-        defaultValue={text}
+    <KeyboardAvoidingView
+      behavior="position"
+      style={styles.container}
+      keyboardVerticalOffset={60}
+    >
+      <FlatList
+        style={styles.list}
+        onScroll={Keyboard.dismiss}
+        data={msgs}
+        renderItem={({ item }) => <MessageBox {...item} />}
       />
-    </View>
+      <View style={styles.inner}>
+        <TextInput
+          style={styles.textBox}
+          // multiline
+          onChangeText={(newText) => setText(newText)}
+          defaultValue={text}
+        />
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     height: "100%",
-  },
-  containerDark: {
     backgroundColor: Colors.dark.background,
   },
-  title: {
-    fontSize: 30,
-    fontWeight: "bold",
+  inner: {
+    flex: 1,
   },
+  textBox: {
+    // position: "absolute",
+    // bottom: 20,
+    width: "90%",
+    height: 40,
+    margin: 10,
+    paddingLeft: 20,
+    paddingRight: 10,
+    backgroundColor: "grey",
+    borderRadius: 50,
+    fontSize: 18,
+  },
+  list: { backgroundColor: Colors.dark.background, height: "92%" },
 });
