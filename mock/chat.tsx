@@ -62,6 +62,13 @@ const users: User[] = [
       "https://png.pngtree.com/png-clipart/20190705/original/pngtree-cute-white-cat-hand-painted-elements-png-image_4228650.jpg",
   },
 ];
+const meUser: User = {
+  id: "me",
+  name: "Admin",
+  imageURL:
+    "https://png.pngtree.com/png-clipart/20190516/original/pngtree-meng-pet-small-shiba-inu-animal-design-paintedcartoonanimalcute-petpuppyshiba-inu-png-image_4041421.jpg",
+};
+
 export const mockData: ChatRowProp[] = [];
 users.forEach((element) => {
   mockData.push({
@@ -77,11 +84,17 @@ users.forEach((element) => {
 });
 
 export const msgs: Message[] = [];
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 10; i++) {
   msgs.push({
     id: `${i}`,
     content: `I am cat!!!!! hello deddeded there dede deded ededede !!!!! !!!!!! !!!!!!! What uuuppppppppppppppppppppppppppp ppp p pp p p p ps`,
     user: users[0],
+    createdAt: new Date("July 20, 69 00:20:18"),
+  });
+  msgs.push({
+    id: `${i + 1000}`,
+    content: `I am me!!!!! hello`,
+    user: meUser,
     createdAt: new Date("July 20, 69 00:20:18"),
   });
 }

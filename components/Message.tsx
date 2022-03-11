@@ -10,43 +10,65 @@ import {
 import Clipboard from "@react-native-community/clipboard";
 import Colors from "../constants/Colors";
 import { Message, User } from "./ChatRow";
+import { useState } from "react";
 
 export function MessageBox(props: Message) {
   const { user, content } = props;
+  const me = user.id === "me";
   const navigation = useNavigation();
-  return (
-    <View style={styles.container}>
+  return !me ? (
+    <View style={styles(me).container}>
       <TouchableOpacity
         onPress={() => navigation.navigate("ChatInfo", { user: user })}
       >
-        <Image source={{ uri: user.imageURL }} style={styles.avatar} />
+        <Image source={{ uri: user.imageURL }} style={styles(me).avatar} />
       </TouchableOpacity>
-      <View style={styles.inner}>
-        <Text style={styles.username}>{user.name}</Text>
-        <TouchableOpacity style={styles.contentWrapper}>
-          <Text selectable style={styles.content}>
-            {content}
-          </Text>
-        </TouchableOpacity>
-      </View>
+      {/* <Text style={styles.username}>{user.name}</Text> */}
+      <TouchableOpacity style={styles(me).contentWrapper}>
+        <Text selectable style={styles(me).content}>
+          {content}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  ) : (
+    <View style={styles(me).container}>
+      {/* <Text style={styles.username}>{user.name}</Text> */}
+      <TouchableOpacity style={styles(me).contentWrapper}>
+        <Text selectable style={styles(me).content}>
+          {content}
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("ChatInfo", { user: user })}
+      >
+        <Image source={{ uri: user.imageURL }} style={styles(me).avatar} />
+      </TouchableOpacity>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    width: "80%",
-    // backgroundColor: "cyan",
-    margin: 10,
-  },
-  inner: { marginLeft: 10 },
-  username: { fontSize: 16, color: Colors.dark.text, marginBottom: 5 },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-  },
-  contentWrapper: { backgroundColor: "wheat", padding: 5 },
-  content: {},
-});
+const styles = (me: Boolean) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      justifyContent: me ? "flex-end" : "flex-start",
+      width: me ? "95%" : "100%",
+      margin: 10,
+    },
+    username: { fontSize: 16, color: Colors.dark.text, marginBottom: 5 },
+    avatar: {
+      width: 50,
+      height: 50,
+      borderRadius: 50,
+    },
+    contentWrapper: {
+      backgroundColor: me ? "cyan" : "wheat",
+      padding: 8,
+      borderRadius: 5,
+      marginTop: 10,
+      maxWidth: "75%",
+      marginLeft: me ? 0 : 10,
+      marginRight: me ? 10 : 0,
+    },
+    content: { fontSize: 14 },
+  });

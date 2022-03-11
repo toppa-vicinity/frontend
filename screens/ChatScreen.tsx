@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -14,12 +14,14 @@ import {
   Keyboard,
   Dimensions,
 } from "react-native";
+import { Message } from "../components/ChatRow";
 import { MessageBox } from "../components/Message";
 import Colors from "../constants/Colors";
 import { msgs } from "../mock/chat";
 
 export function ChatScreen() {
   const [text, setText] = useState("");
+  const chatRef = useRef<FlatList<Message>>(null);
   return (
     <KeyboardAvoidingView
       behavior="position"
@@ -27,6 +29,7 @@ export function ChatScreen() {
       keyboardVerticalOffset={60}
     >
       <FlatList
+        ref={chatRef}
         style={styles.list}
         onScroll={Keyboard.dismiss}
         data={msgs}
@@ -38,6 +41,11 @@ export function ChatScreen() {
           // multiline
           onChangeText={(newText) => setText(newText)}
           defaultValue={text}
+          onFocus={() => {
+            // chatRef.current?.scrollToEnd();
+          }}
+          returnKeyType="go"
+          onSubmitEditing={(input) => alert(input.nativeEvent.text)}
         />
       </View>
     </KeyboardAvoidingView>
