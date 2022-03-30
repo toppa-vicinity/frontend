@@ -11,6 +11,8 @@ import Clipboard from "@react-native-community/clipboard";
 import Colors from "../constants/Colors";
 import { Message, User } from "./ChatRow";
 import { useState } from "react";
+import type { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../types";
 
 export function MessageBox(props: Message) {
   const { user, content } = props;
