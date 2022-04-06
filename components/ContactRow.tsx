@@ -37,7 +37,9 @@ export default function ContactRow(props: ContactRowProp) {
         </View>
       </View>
     </TouchableHighlight>
+    
   );
+  
 }
 
 const styles = StyleSheet.create({
@@ -67,4 +69,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+  bottomContainer:{
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  
 });
