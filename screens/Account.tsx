@@ -1,55 +1,84 @@
-import { SafeAreaView, Button, StyleSheet, View, Text, Image } from "react-native";
-import { RouteProp } from '@react-navigation/native';
-import React from 'react'; 
-import { TouchableRipple, Title, Caption} from 'react-native-paper';
-import Colors from '../constants/Colors';
-import { RootStackParamList } from '../types';
+import {
+  SafeAreaView,
+  Button,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+} from "react-native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
+import React, { useContext } from "react";
+import { TouchableRipple, Title, Caption } from "react-native-paper";
+import Colors from "../constants/Colors";
+import { RootStackParamList } from "../types";
 import EditScreenInfo from "../components/EditScreenInfo";
 // import { Text, View } from "../components/Themed";
 // import Colors from "../constants/Colors";
 import { RootTabScreenProps } from "../types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GlobalContext } from "../Context";
 
-export default function Account({route}:{route: RouteProp<RootStackParamList, "ChatScreen">}) {
+export default function Account({
+  route,
+}: {
+  route: RouteProp<RootStackParamList, "ChatScreen">;
+}) {
+  const { setCredentials } = useContext(GlobalContext);
+  const logout = () => {
+    if (setCredentials) {
+      AsyncStorage.clear();
+      setCredentials("");
+    }
+  };
   return (
-    
-    <SafeAreaView style = {styles.container}>
-     <View style = {styles.infoScreen}>
-       <View style = {{flexDirection: 'row', marginTop: 15}}>
-         <Image source={{uri:  route.params?.user.imageURL}} style={styles.avatar}/>
-        </View><View style = {{marginLeft: 20}}>
-          <Title style = {styles.title}>UserName: {route.params?.user.name}</Title>
-          <Caption style = {styles.caption}>ID: {route.params?.user.id}</Caption>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.infoScreen}>
+        <View style={{ flexDirection: "row", marginTop: 15 }}>
+          <Image
+            source={{ uri: route.params?.user.imageURL }}
+            style={styles.avatar}
+          />
+        </View>
+        <View style={{ marginLeft: 20 }}>
+          <Title style={styles.title}>
+            UserName: {route.params?.user.name}
+          </Title>
+          <Caption style={styles.caption}>ID: {route.params?.user.id}</Caption>
         </View>
       </View>
 
-     <View style = {styles.menuButton}>
-     <TouchableRipple onPress = {() => {}}>
-        <View style = {styles.menuItem}>
-          <Text style = {styles.menuText}>Name</Text>
-        </View>
-      </TouchableRipple>
+      <View style={styles.menuButton}>
+        <TouchableRipple onPress={() => {}}>
+          <View style={styles.menuItem}>
+            <Text style={styles.menuText}>Name</Text>
+          </View>
+        </TouchableRipple>
 
-      <TouchableRipple onPress = {() => {}}>
-        <View style = {styles.menuItem}>
-          <Text style = {styles.menuText}>Vicinity ID</Text>
-        </View>
-      </TouchableRipple>
+        <TouchableRipple onPress={() => {}}>
+          <View style={styles.menuItem}>
+            <Text style={styles.menuText}>Vicinity ID</Text>
+          </View>
+        </TouchableRipple>
 
-      <TouchableRipple onPress = {() => {}}>
-        <View style = {styles.menuItem}>
-          <Text style = {styles.menuText}>My QR Code</Text>
-        </View>
-      </TouchableRipple>
+        <TouchableRipple onPress={() => {}}>
+          <View style={styles.menuItem}>
+            <Text style={styles.menuText}>My QR Code</Text>
+          </View>
+        </TouchableRipple>
 
-      <TouchableRipple onPress = {() => {}}>
-        <View style = {styles.menuItem}>
-          <Text style = {styles.menuText}>Password</Text>
-        </View>
-      </TouchableRipple>
-       
+        <TouchableRipple onPress={() => {}}>
+          <View style={styles.menuItem}>
+            <Text style={styles.menuText}>Password</Text>
+          </View>
+        </TouchableRipple>
 
+        <TouchableRipple onPress={logout}>
+          <View style={styles.menuItem}>
+            <Text style={styles.menuText}>Logout</Text>
+          </View>
+        </TouchableRipple>
       </View>
-     </SafeAreaView>
+    </SafeAreaView>
   );
 }
 
@@ -57,33 +86,39 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     backgroundColor: Colors.dark.background,
-  },infoScreen: {
-    paddingHorizontal: 30, 
+  },
+  infoScreen: {
+    paddingHorizontal: 30,
     marginBottom: 25,
-  }, title: {
+  },
+  title: {
     color: "#E3E8EE",
     fontSize: 20,
     fontWeight: "600",
-  }, avatar: {
+  },
+  avatar: {
     width: 50,
     height: 50,
     borderRadius: 50,
-  },caption: {
+  },
+  caption: {
     color: "#E3E8EE",
-    fontSize: 14, 
-    lineHeight: 14, 
-    fontWeight: "500", 
-  }, menuButton: {
+    fontSize: 14,
+    lineHeight: 14,
+    fontWeight: "500",
+  },
+  menuButton: {
     marginTop: 10,
-
-  }, menuItem : {
-    flexDirection: 'column', 
-    paddingVertical: 15, 
-  }, menuText: { 
+  },
+  menuItem: {
+    flexDirection: "column",
+    paddingVertical: 15,
+  },
+  menuText: {
     color: "#FFFFFF",
-    marginLeft: 20, 
-    fontSize: 16, 
+    marginLeft: 20,
+    fontSize: 16,
     fontWeight: "bold",
-    lineHeight: 26 
+    lineHeight: 26,
   },
 });

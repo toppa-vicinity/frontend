@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AppLoading from "expo-app-loading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, Button, Image, StyleSheet, TextInput } from "react-native";
@@ -8,8 +8,11 @@ import { View, Button, Image, StyleSheet, TextInput } from "react-native";
 import Colors from "../constants/Colors";
 import { useMutation } from "@apollo/client";
 import { LOGIN_CREDENTIALS, USER_LOGIN } from "../apis/user";
+import { GlobalContext } from "../Context";
 
 function Login() {
+  const { setCredentials } = useContext(GlobalContext);
+
   const [isLogin, setisLogin] = useState(true);
   const [credential, setCredential] = useState({
     username: "admin",
@@ -22,10 +25,17 @@ function Login() {
     loginMutation({
       variables: { options: credential },
     });
-
+    console.log(data, credential);
     if (data && data.login && data.login.token) {
       try {
-        await AsyncStorage.setItem(LOGIN_CREDENTIALS, data.login.token);
+        await AsyncStorage.setItem(
+          LOGIN_CREDENTIALS,
+          JSON.stringify(data.login.token),
+          () => {
+            console.log("success");
+          }
+        );
+        setCredentials && setCredentials(credential.username);
       } catch (error) {
         console.log(error);
       }
@@ -33,6 +43,7 @@ function Login() {
       // login error
     }
   };
+
   return (
     <SafeAreaView style={styles.background}>
       <Image

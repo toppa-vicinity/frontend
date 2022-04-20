@@ -31,6 +31,7 @@ export type RootStackParamList = {
   NotFound: undefined;
   ChatScreen: ChatScreenParamList | undefined;
   ChatInfo: ChatInfoParamList | undefined;
+  Login: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -39,7 +40,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 export type RootTabParamList = {
   Chat: undefined;
   Connect: undefined;
-  Contacts: undefined;
+  Friends: undefined;
   Account: undefined;
 };
 

@@ -36,6 +36,7 @@ import {
 import LinkingConfiguration from "./LinkingConfiguration";
 import { ChatScreen } from "../screens/ChatScreen";
 import ChatInfo from "../screens/ChatInfo";
+import Login from "../screens/Login";
 
 export default function Navigation({
   colorScheme,
@@ -106,6 +107,14 @@ function RootNavigator() {
         })}
       />
       <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerBackButtonMenuEnabled: false,
+          headerBackVisible: false,
+        }}
+      />
+      <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
@@ -158,7 +167,7 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Contacts"
+        name="Friends"
         component={Contacts}
         options={{
           tabBarIcon: ({ color }) => (

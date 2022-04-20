@@ -18,6 +18,7 @@ import {
 import Colors from "./constants/Colors";
 import Login from "./screens/Login";
 import { LOGIN_CREDENTIALS } from "./apis/user";
+import { GlobalContext } from "./Context";
 
 function App() {
   const isLoadingComplete = useCachedResources();
@@ -27,14 +28,14 @@ function App() {
     cache: new InMemoryCache(),
   });
 
-  const [credential, setCredential] = useState("");
+  const [credentials, setCredentials] = useState("");
   const [appReady, setAppReady] = useState(false);
 
   const checkCredentials = async () => {
     const value = await AsyncStorage.getItem(LOGIN_CREDENTIALS);
     if (value !== null) {
       console.log(value);
-      setCredential(value);
+      setCredentials(value);
     }
   };
 
@@ -52,7 +53,9 @@ function App() {
     }
     return (
       <ApolloProvider client={client}>
-        {credential != "" ? <Main /> : <Login />}
+        <GlobalContext.Provider value={{ setCredentials }}>
+          {credentials != "" ? <Main /> : <Login />}
+        </GlobalContext.Provider>
       </ApolloProvider>
     );
   }
@@ -63,7 +66,6 @@ function Main() {
   return (
     <SafeAreaProvider>
       <Navigation colorScheme={colorScheme} />
-      <StatusBar />
     </SafeAreaProvider>
   );
 }
