@@ -167,7 +167,7 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Friends"
+        name="Contacts"
         component={Contacts}
         options={{
           tabBarIcon: ({ color }) => (

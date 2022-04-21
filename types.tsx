@@ -18,7 +18,7 @@ declare global {
 }
 
 export type ChatScreenParamList = {
-  id: String;
+  id: string;
   user: User;
 };
 export type ChatInfoParamList = {
@@ -40,7 +40,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 export type RootTabParamList = {
   Chat: undefined;
   Connect: undefined;
-  Friends: undefined;
+  Contacts: undefined;
   Account: undefined;
 };
 

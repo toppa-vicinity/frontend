@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -17,11 +17,30 @@ import {
 import { Message } from "../components/ChatRow";
 import { MessageBox } from "../components/Message";
 import Colors from "../constants/Colors";
-import { msgs } from "../mock/chat";
+import { meUser, mockData, msgs } from "../mock/chat";
 
 export function ChatScreen() {
   const [text, setText] = useState("");
   const chatRef = useRef<FlatList<Message>>(null);
+  const inputRef = useRef<TextInput>(null);
+  useEffect(() => {}, [msgs]);
+
+  let id = 10000;
+  const sendMsg = (newText: string) => {
+    if (newText.length < 1) {
+      return;
+    }
+    const newMsg = {
+      id: `${Math.floor(Math.random() * 1000)}`,
+      user: meUser,
+      content: newText,
+      createdAt: new Date(),
+    };
+    msgs.push(newMsg);
+    mockData[0] = { ...mockData[0], recentMsg: newMsg };
+    setText("");
+  };
+
   return (
     <KeyboardAvoidingView
       behavior="position"
@@ -30,6 +49,7 @@ export function ChatScreen() {
     >
       <FlatList
         ref={chatRef}
+        onContentSizeChange={() => chatRef.current?.scrollToEnd()}
         style={styles.list}
         onScroll={Keyboard.dismiss}
         data={msgs}
@@ -44,8 +64,11 @@ export function ChatScreen() {
           onFocus={() => {
             // chatRef.current?.scrollToEnd();
           }}
+          ref={inputRef}
           returnKeyType="go"
-          onSubmitEditing={(input) => alert(input.nativeEvent.text)}
+          onSubmitEditing={(input) => {
+            sendMsg(input.nativeEvent.text), inputRef.current?.clear();
+          }}
         />
       </View>
     </KeyboardAvoidingView>

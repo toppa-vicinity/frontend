@@ -1,6 +1,7 @@
 import { ChatRowProp, Message, User } from "../components/ChatRow";
+import { ConnectRowProp } from "../components/ConnectRow";
 
-const users: User[] = [
+export const users: User[] = [
   {
     id: "1",
     name: "Cat",
@@ -80,6 +81,14 @@ users.forEach((element) => {
       user: element,
       createdAt: new Date("July 20, 69 00:20:18"),
     },
+  });
+});
+export const connectMockData: ConnectRowProp[] = [];
+users.forEach((element) => {
+  connectMockData.push({
+    id: element.id,
+    user: element,
+    timeSpent: "1 hour 30 minutes",
   });
 });
 

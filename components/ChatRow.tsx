@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import { useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -6,6 +7,7 @@ import {
   Text,
   TouchableHighlight,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
 
@@ -30,6 +32,7 @@ export interface Message {
 
 export default function ChatRow(props: ChatRowProp) {
   const { user, recentMsg, id } = props;
+
   const _onPressButton = () => {
     navigaton.navigate("ChatScreen", { id, user });
   };
@@ -54,6 +57,23 @@ export default function ChatRow(props: ChatRowProp) {
   );
 }
 
+export function DefaultChatRow() {
+  const _onPressButton = () => {};
+  const navigaton = useNavigation();
+  return (
+    <TouchableHighlight onPress={_onPressButton} underlayColor="lightgrey">
+      <View style={styles.container}>
+        <Ionicons name="person-circle-sharp" size={24} color="black" />
+        <View style={styles.rightContainer}>
+          <View style={styles.topContainer}>
+            <Text style={styles.username}>New Contact</Text>
+          </View>
+        </View>
+      </View>
+    </TouchableHighlight>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
@@ -66,10 +86,12 @@ const styles = StyleSheet.create({
   rightContainer: {
     justifyContent: "space-between",
     marginLeft: 12,
+    width: "98%",
   },
   topContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
   },
   avatar: {
     width: 50,

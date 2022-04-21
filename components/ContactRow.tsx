@@ -16,12 +16,11 @@ export interface User {
 }
 
 export interface ContactRowProp {
-  id: string;
   user: User;
 }
 
 export default function ContactRow(props: ContactRowProp) {
-  const { user, id } = props;
+  const { user } = props;
   const _onPressButton = () => {
     navigaton.navigate("ChatInfo", { user });
   };
@@ -37,9 +36,7 @@ export default function ContactRow(props: ContactRowProp) {
         </View>
       </View>
     </TouchableHighlight>
-    
   );
-  
 }
 
 const styles = StyleSheet.create({
@@ -69,9 +66,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  bottomContainer:{
+  bottomContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  
 });

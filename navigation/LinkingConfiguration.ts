@@ -17,7 +17,7 @@ const linking: LinkingOptions<RootStackParamList> = {
         screens: {
           Chat: "*",
           Connect: "*",
-          Friends: "*",
+          Contacts: "*",
           Account: "*",
         },
       },

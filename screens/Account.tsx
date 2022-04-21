@@ -17,6 +17,7 @@ import EditScreenInfo from "../components/EditScreenInfo";
 import { RootTabScreenProps } from "../types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GlobalContext } from "../Context";
+import { meUser } from "../mock/chat";
 
 export default function Account({
   route,
@@ -33,17 +34,10 @@ export default function Account({
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.infoScreen}>
-        <View style={{ flexDirection: "row", marginTop: 15 }}>
-          <Image
-            source={{ uri: route.params?.user.imageURL }}
-            style={styles.avatar}
-          />
-        </View>
+        <Image source={{ uri: meUser.imageURL }} style={styles.avatar} />
         <View style={{ marginLeft: 20 }}>
-          <Title style={styles.title}>
-            UserName: {route.params?.user.name}
-          </Title>
-          <Caption style={styles.caption}>ID: {route.params?.user.id}</Caption>
+          <Title style={styles.title}>{meUser.name}</Title>
+          <Caption style={styles.caption}>ID: {meUser.id}</Caption>
         </View>
       </View>
 
@@ -89,7 +83,9 @@ const styles = StyleSheet.create({
   },
   infoScreen: {
     paddingHorizontal: 30,
-    marginBottom: 25,
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 40,
   },
   title: {
     color: "#E3E8EE",
@@ -97,8 +93,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   avatar: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     borderRadius: 50,
   },
   caption: {
@@ -113,6 +109,7 @@ const styles = StyleSheet.create({
   menuItem: {
     flexDirection: "column",
     paddingVertical: 15,
+    paddingHorizontal: 15,
   },
   menuText: {
     color: "#FFFFFF",

@@ -14,7 +14,7 @@ function Login() {
   const { setCredentials } = useContext(GlobalContext);
 
   const [isLogin, setisLogin] = useState(true);
-  const [credential, setCredential] = useState({
+  const [credential] = useState({
     username: "admin",
     password: "admin",
     email: null,
