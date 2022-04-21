@@ -10,6 +10,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
 
 export interface User {
   id: string;
@@ -37,18 +38,19 @@ export default function ChatRow(props: ChatRowProp) {
     navigaton.navigate("ChatScreen", { id, user });
   };
   const navigaton = useNavigation();
+  const scheme = useColorScheme();
   return (
     <TouchableHighlight onPress={_onPressButton} underlayColor="lightgrey">
-      <View style={styles.container}>
-        <Image source={{ uri: user.imageURL }} style={styles.avatar} />
-        <View style={styles.rightContainer}>
-          <View style={styles.topContainer}>
-            <Text style={styles.username}>{user.name}</Text>
+      <View style={styles(scheme).container}>
+        <Image source={{ uri: user.imageURL }} style={styles(scheme).avatar} />
+        <View style={styles(scheme).rightContainer}>
+          <View style={styles(scheme).topContainer}>
+            <Text style={styles(scheme).username}>{user.name}</Text>
             <Text
-              style={styles.content}
+              style={styles(scheme).content}
             >{`${recentMsg.createdAt.getMonth()}/${recentMsg.createdAt.getDate()}/${recentMsg.createdAt.getFullYear()}`}</Text>
           </View>
-          <Text numberOfLines={1} style={styles.content}>
+          <Text numberOfLines={1} style={styles(scheme).content}>
             {recentMsg.content}
           </Text>
         </View>
@@ -57,55 +59,39 @@ export default function ChatRow(props: ChatRowProp) {
   );
 }
 
-export function DefaultChatRow() {
-  const _onPressButton = () => {};
-  const navigaton = useNavigation();
-  return (
-    <TouchableHighlight onPress={_onPressButton} underlayColor="lightgrey">
-      <View style={styles.container}>
-        <Ionicons name="person-circle-sharp" size={24} color="black" />
-        <View style={styles.rightContainer}>
-          <View style={styles.topContainer}>
-            <Text style={styles.username}>New Contact</Text>
-          </View>
-        </View>
-      </View>
-    </TouchableHighlight>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    height: 50,
-    width: "80%",
-    margin: 10,
-    marginTop: 12,
-    marginBottom: 12,
-  },
-  rightContainer: {
-    justifyContent: "space-between",
-    marginLeft: 12,
-    width: "98%",
-  },
-  topContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-  },
-  username: {
-    color: "#E3E8EE",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  content: {
-    color: "#939CA1",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-});
+const styles = (scheme: "light" | "dark") =>
+  StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      height: 50,
+      width: "80%",
+      margin: 10,
+      marginTop: 12,
+      marginBottom: 12,
+    },
+    rightContainer: {
+      justifyContent: "space-between",
+      marginLeft: 12,
+      width: "98%",
+    },
+    topContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    avatar: {
+      width: 50,
+      height: 50,
+      borderRadius: 50,
+    },
+    username: {
+      color: Colors[scheme].text,
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+    content: {
+      color: "#939CA1",
+      fontSize: 16,
+      fontWeight: "bold",
+    },
+  });

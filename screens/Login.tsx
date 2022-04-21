@@ -9,6 +9,7 @@ import Colors from "../constants/Colors";
 import { useMutation } from "@apollo/client";
 import { LOGIN_CREDENTIALS, USER_LOGIN } from "../apis/user";
 import { GlobalContext } from "../Context";
+import useColorScheme from "../hooks/useColorScheme";
 
 function Login() {
   const { setCredentials } = useContext(GlobalContext);
@@ -44,29 +45,32 @@ function Login() {
     }
   };
 
+  const scheme = useColorScheme();
   return (
-    <SafeAreaView style={styles.background}>
+    <SafeAreaView style={styles(scheme).background}>
       <Image
-        style={styles.logo}
+        style={styles(scheme).logo}
         source={require("../assets/images/Talk.png")}
       />
-      {!isLogin && <TextInput style={styles.form} placeholder="Username" />}
-      <TextInput style={styles.form} placeholder="Email" />
+      {!isLogin && (
+        <TextInput style={styles(scheme).form} placeholder="Username" />
+      )}
+      <TextInput style={styles(scheme).form} placeholder="Email" />
       <TextInput
-        style={styles.form}
+        style={styles(scheme).form}
         secureTextEntry={true}
         placeholder="Password"
       />
       {isLogin ? (
-        <View style={styles.button}>
+        <View style={styles(scheme).button}>
           <Button onPress={login} title="Login" />
         </View>
       ) : (
-        <View style={styles.button}>
+        <View style={styles(scheme).button}>
           <Button onPress={login} title="Register" />
         </View>
       )}
-      <View style={styles.button}>
+      <View style={styles(scheme).button}>
         <Button
           onPress={() => {
             setisLogin(!isLogin);
@@ -82,29 +86,30 @@ function Login() {
   );
 }
 
-const styles = StyleSheet.create({
-  background: {
-    backgroundColor: Colors.dark.background,
-    height: "100%",
-    alignItems: "center",
-    paddingTop: 200,
-  },
-  logo: {
-    width: 70,
-    height: 70,
-    borderRadius: 10,
-  },
-  form: {
-    width: "70%",
-    height: 40,
-    backgroundColor: "white",
-    borderRadius: 10,
-    marginTop: 30,
-    padding: 10,
-  },
-  button: {
-    marginTop: 30,
-  },
-});
+const styles = (scheme: "light" | "dark") =>
+  StyleSheet.create({
+    background: {
+      backgroundColor: Colors[scheme].background,
+      height: "100%",
+      alignItems: "center",
+      paddingTop: 200,
+    },
+    logo: {
+      width: 70,
+      height: 70,
+      borderRadius: 10,
+    },
+    form: {
+      width: "70%",
+      height: 40,
+      backgroundColor: "white",
+      borderRadius: 10,
+      marginTop: 30,
+      padding: 10,
+    },
+    button: {
+      marginTop: 30,
+    },
+  });
 
 export default Login;

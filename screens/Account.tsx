@@ -18,6 +18,7 @@ import { RootTabScreenProps } from "../types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GlobalContext } from "../Context";
 import { meUser } from "../mock/chat";
+import useColorScheme from "../hooks/useColorScheme";
 
 export default function Account({
   route,
@@ -31,44 +32,48 @@ export default function Account({
       setCredentials("");
     }
   };
+  const scheme = useColorScheme();
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.infoScreen}>
-        <Image source={{ uri: meUser.imageURL }} style={styles.avatar} />
+    <SafeAreaView style={styles(scheme).container}>
+      <View style={styles(scheme).infoScreen}>
+        <Image
+          source={{ uri: meUser.imageURL }}
+          style={styles(scheme).avatar}
+        />
         <View style={{ marginLeft: 20 }}>
-          <Title style={styles.title}>{meUser.name}</Title>
-          <Caption style={styles.caption}>ID: {meUser.id}</Caption>
+          <Title style={styles(scheme).title}>{meUser.name}</Title>
+          <Caption style={styles(scheme).caption}>ID: {meUser.id}</Caption>
         </View>
       </View>
 
-      <View style={styles.menuButton}>
+      <View style={styles(scheme).menuButton}>
         <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Text style={styles.menuText}>Name</Text>
+          <View style={styles(scheme).menuItem}>
+            <Text style={styles(scheme).menuText}>Name</Text>
           </View>
         </TouchableRipple>
 
         <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Text style={styles.menuText}>Vicinity ID</Text>
+          <View style={styles(scheme).menuItem}>
+            <Text style={styles(scheme).menuText}>Vicinity ID</Text>
           </View>
         </TouchableRipple>
 
         <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Text style={styles.menuText}>My QR Code</Text>
+          <View style={styles(scheme).menuItem}>
+            <Text style={styles(scheme).menuText}>My QR Code</Text>
           </View>
         </TouchableRipple>
 
         <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Text style={styles.menuText}>Password</Text>
+          <View style={styles(scheme).menuItem}>
+            <Text style={styles(scheme).menuText}>Password</Text>
           </View>
         </TouchableRipple>
 
         <TouchableRipple onPress={logout}>
-          <View style={styles.menuItem}>
-            <Text style={styles.menuText}>Logout</Text>
+          <View style={styles(scheme).menuItem}>
+            <Text style={styles(scheme).menuText}>Logout</Text>
           </View>
         </TouchableRipple>
       </View>
@@ -76,46 +81,48 @@ export default function Account({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    height: "100%",
-    backgroundColor: Colors.dark.background,
-  },
-  infoScreen: {
-    paddingHorizontal: 30,
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 40,
-  },
-  title: {
-    color: "#E3E8EE",
-    fontSize: 20,
-    fontWeight: "600",
-  },
-  avatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 50,
-  },
-  caption: {
-    color: "#E3E8EE",
-    fontSize: 14,
-    lineHeight: 14,
-    fontWeight: "500",
-  },
-  menuButton: {
-    marginTop: 10,
-  },
-  menuItem: {
-    flexDirection: "column",
-    paddingVertical: 15,
-    paddingHorizontal: 15,
-  },
-  menuText: {
-    color: "#FFFFFF",
-    marginLeft: 20,
-    fontSize: 16,
-    fontWeight: "bold",
-    lineHeight: 26,
-  },
-});
+const styles = (scheme: "light" | "dark") =>
+  StyleSheet.create({
+    container: {
+      height: "100%",
+      backgroundColor: Colors[scheme].background,
+    },
+
+    infoScreen: {
+      paddingHorizontal: 30,
+      flexDirection: "row",
+      alignItems: "center",
+      marginTop: 40,
+    },
+    title: {
+      color: Colors[scheme].text,
+      fontSize: 20,
+      fontWeight: "600",
+    },
+    avatar: {
+      width: 60,
+      height: 60,
+      borderRadius: 50,
+    },
+    caption: {
+      color: Colors[scheme].text,
+      fontSize: 14,
+      lineHeight: 14,
+      fontWeight: "500",
+    },
+    menuButton: {
+      marginTop: 10,
+    },
+    menuItem: {
+      flexDirection: "column",
+      paddingVertical: 15,
+      paddingHorizontal: 15,
+    },
+    menuText: {
+      color: Colors[scheme].text,
+      marginLeft: 20,
+      fontSize: 16,
+      fontWeight: "bold",
+      lineHeight: 26,
+    },
+  });

@@ -17,6 +17,7 @@ import {
 import { Message } from "../components/ChatRow";
 import { MessageBox } from "../components/Message";
 import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
 import { meUser, mockData, msgs } from "../mock/chat";
 
 export function ChatScreen() {
@@ -24,6 +25,7 @@ export function ChatScreen() {
   const chatRef = useRef<FlatList<Message>>(null);
   const inputRef = useRef<TextInput>(null);
   useEffect(() => {}, [msgs]);
+  const scheme = useColorScheme();
 
   let id = 10000;
   const sendMsg = (newText: string) => {
@@ -44,20 +46,22 @@ export function ChatScreen() {
   return (
     <KeyboardAvoidingView
       behavior="position"
-      style={styles.container}
+      style={styles(scheme).container}
       keyboardVerticalOffset={60}
     >
       <FlatList
         ref={chatRef}
-        onContentSizeChange={() => chatRef.current?.scrollToEnd()}
-        style={styles.list}
+        onContentSizeChange={() =>
+          chatRef.current?.scrollToEnd({ animated: false })
+        }
+        style={styles(scheme).list}
         onScroll={Keyboard.dismiss}
         data={msgs}
         renderItem={({ item }) => <MessageBox {...item} />}
       />
-      <View style={styles.inner}>
+      <View style={styles(scheme).inner}>
         <TextInput
-          style={styles.textBox}
+          style={styles(scheme).textBox}
           // multiline
           onChangeText={(newText) => setText(newText)}
           defaultValue={text}
@@ -75,26 +79,27 @@ export function ChatScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: "100%",
-    backgroundColor: Colors.dark.background,
-  },
-  inner: {
-    flex: 1,
-  },
-  textBox: {
-    // position: "absolute",
-    // bottom: 20,
-    width: "90%",
-    height: 40,
-    margin: 10,
-    paddingLeft: 20,
-    paddingRight: 10,
-    backgroundColor: "grey",
-    borderRadius: 50,
-    fontSize: 18,
-  },
-  list: { backgroundColor: Colors.dark.background, height: "92%" },
-});
+const styles = (scheme: "light" | "dark") =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      height: "100%",
+      backgroundColor: Colors[scheme].background,
+    },
+    inner: {
+      flex: 1,
+    },
+    textBox: {
+      // position: "absolute",
+      // bottom: 20,
+      width: "90%",
+      height: 40,
+      margin: 10,
+      paddingLeft: 20,
+      paddingRight: 10,
+      backgroundColor: "lightgrey",
+      borderRadius: 50,
+      fontSize: 18,
+    },
+    list: { backgroundColor: Colors[scheme].background, height: "92%" },
+  });

@@ -5,11 +5,12 @@
  */
 import { StatusBar } from "expo-status-bar";
 import { Platform, Text } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Feather,
+  MaterialCommunityIcons,
+  Entypo,
+} from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
@@ -49,7 +50,15 @@ export default function Navigation({
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
       <RootNavigator />
-      <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
+      <StatusBar
+        style={
+          Platform.OS === "ios"
+            ? colorScheme === "dark"
+              ? "light"
+              : "dark"
+            : "auto"
+        }
+      />
     </NavigationContainer>
   );
 }
@@ -61,7 +70,7 @@ export default function Navigation({
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
-  const colorScheme = "dark";
+  const colorScheme = useColorScheme();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -92,7 +101,7 @@ function RootNavigator() {
               <Entypo
                 name="dots-three-horizontal"
                 size={24}
-                color={Colors.dark.text}
+                color={Colors[colorScheme].text}
               />
             </Pressable>
           ),
@@ -133,8 +142,7 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
-  // const colorScheme = useColorScheme();
-  const colorScheme = "dark";
+  const colorScheme = useColorScheme();
 
   return (
     <BottomTab.Navigator
