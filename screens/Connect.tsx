@@ -33,7 +33,6 @@ const styles = (scheme: "light" | "dark") =>
     totalFriends: {
       width: 50,
       height: 50,
-      backgroundColor: "red",
       // color: "#E3E8EE",
       // fontSize: 12,
       // textAlign: "center"

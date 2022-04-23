@@ -25,7 +25,7 @@ export interface ConnectRowProp {
   timeSpent: string;
 }
 
-export default function ContactRow(props: ConnectRowProp) {
+export default function ConnnectRow(props: ConnectRowProp) {
   const { user, id, timeSpent } = props;
   const _onPressButton = () => {
     navigaton.navigate("ChatInfo", { user });
