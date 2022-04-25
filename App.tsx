@@ -54,7 +54,8 @@ function App() {
     return (
       <ApolloProvider client={client}>
         <GlobalContext.Provider value={{ setCredentials }}>
-          {credentials != "" ? <Main /> : <Login />}
+          {/* {credentials != "" ? <Main /> : <Login />} */}
+          <Main />
         </GlobalContext.Provider>
       </ApolloProvider>
     );
